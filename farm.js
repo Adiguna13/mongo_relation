@@ -24,7 +24,7 @@ const farmSchema = new mongoose.Schema({
   products: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      enum: ["spring", "summer", "fall", "winter"],
+      ref: "Product",
     },
   ],
 });
@@ -53,7 +53,16 @@ const addProduct = async (id) => {
   console.log(farm);
 };
 
-addProduct("64c07d638c8cfc90440cac05");
+// addProduct("64c07d638c8cfc90440cac05");
+
+Farm.findOne({ name: "Farm 1" })
+  .populate("products", "name")
+  .then((res) => {
+    console.log(res);
+    // for (const product of res.products) {
+    //   console.log(product.name);
+    // }
+  });
 
 // Product.insertMany([
 //   {
